@@ -1,0 +1,10 @@
+name: lecture_agent  #环境名称
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12    # 当前最稳定的版本
+  - pip
+  - pip:
+    - uv   
+   

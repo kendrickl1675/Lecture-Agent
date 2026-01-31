@@ -1,0 +1,29 @@
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: C:\ProgramData\miniconda3
+
+  added / updated specs:
+    - conda
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    ca-certificates-2026.1.4   |       h4c7d964_0         144 KB  conda-forge
+    certifi-2024.2.2           |     pyhd8ed1ab_0         157 KB  conda-forge
+    openssl-1.1.1w             |       h2bbff1b_0         5.5 MB
+    ------------------------------------------------------------
+                                           Total:         5.8 MB
+
+The following packages will be UPDATED:
+
+  ca-certificates    pkgs/main/win-64::ca-certificates-202~ --> conda-forge/noarch::ca-certificates-2026.1.4-h4c7d964_0 
+  certifi            pkgs/main/win-64::certifi-2022.12.7-p~ --> conda-forge/noarch::certifi-2024.2.2-pyhd8ed1ab_0 
+  openssl                                 1.1.1t-h2bbff1b_0 --> 1.1.1w-h2bbff1b_0 
+
+
+Proceed ([y]/n)? 终止批处理操作吗(Y/N)? 
