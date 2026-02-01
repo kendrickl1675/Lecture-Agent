@@ -5,6 +5,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
+import torch
 
 load_dotenv()
 
@@ -16,9 +17,20 @@ class LectureAgentCore:
 
         # 1. 初始化向量数据库 (RAG 记忆模块)
         # 使用 BAAI/bge-m3 模型将文本转换为向量，支持中英文混合
+
+        if torch.cuda.is_available():
+            device_type = 'cuda'
+            print("Detected NVIDIA GPU (CUDA)")
+        elif torch.backends.mps.is_available():
+            device_type = 'mps'  # Apple Silicon 的加速器
+            print("Detected Apple Silicon (MPS)")
+        else:
+            device_type = 'cpu'
+            print("Using CPU")
+
         self.embeddings = HuggingFaceEmbeddings(
             model_name="BAAI/bge-m3",
-            model_kwargs={'device': 'cuda'}  # 强制使用 GPU 加速
+            model_kwargs={'device': device_type}
         )
         # 加载本地持久化的数据库
         self.vector_db = Chroma(
