@@ -1,6 +1,6 @@
 @echo off
 title FinTech AI Assistant
-echo Starting Obsidian Watcher...
+echo Starting Lecture Note Daemon...
 
 
 call C:\miniconda3\condabin\conda.bat activate lecture_agent
