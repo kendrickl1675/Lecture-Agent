@@ -1,0 +1,24 @@
+# --- 1. 排除大模型文件 ---
+models/
+
+# --- 2. 排除本地数据库 ---
+chroma_db/
+
+# --- 3. 排除敏感配置 (安全第一) ---
+.env
+# 保留 .env.example (稍后创建)
+
+# --- 4. 排除运行时日志 ---
+*.log
+agent_runtime.log
+
+# --- 5. Python 标准排除项 (缓存等) ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.spec
