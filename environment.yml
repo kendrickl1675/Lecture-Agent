@@ -5,6 +5,20 @@ channels:
 dependencies:
   - python=3.12    # 当前最稳定的版本
   - pip
+  - uv
   - pip:
-    - uv   
-   
+    - python-dotenv
+# --- LangChain 全家桶 ---
+    - langchain
+    - langchain-community
+    - langchain-core
+    - langchain-text-splitters
+# --- 向量数据库 & Embeddings ---
+    - langchain-chroma
+    - chromadb            # 核心向量库
+    - langchain-huggingface
+    - sentence-transformers # bge-m3 模型依赖
+
+    # --- 深度学习框架 ---
+    - torch
+    - torchvision

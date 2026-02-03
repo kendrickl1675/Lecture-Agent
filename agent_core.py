@@ -105,7 +105,7 @@ class LectureAgentCore:
                 # 使用带阈值的检索，过滤掉相关性低的内容
                 retriever = self.vector_db.as_retriever(
                     search_type="similarity_score_threshold",
-                    search_kwargs={"score_threshold": 0.6, "k": 2}
+                    search_kwargs={"score_threshold": 0.3, "k": 2}
                 )
                 docs = retriever.invoke(raw_text)
                 if docs:

@@ -5,7 +5,7 @@ import logging
 from agent_core import LectureAgentCore
 
 # --- 基础配置 ---
-OBSIDIAN_PATH = r"F:\Documents\UM2026"  # ⚠️ Beta测试时请确认此路径指向你的克隆库
+OBSIDIAN_PATH = r"./test_notes"  # ⚠️ Beta测试时请确认此路径指向你的克隆库
 LOG_FILE = "agent_runtime.log"
 
 # --- 触发标签配置 ---

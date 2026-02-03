@@ -21,3 +21,6 @@ htmlcov/
 dist/
 build/
 *.spec
+
+# --- 6. 排除测试用文件夹 ---
+attachments/
