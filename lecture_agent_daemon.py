@@ -6,7 +6,7 @@ from agent_core import LectureAgentCore
 
 # --- 基础配置 ---
 OBSIDIAN_PATH = r"./test_notes"  # ⚠️ Beta测试时请确认此路径指向你的克隆库
-LOG_FILE = "agent_runtime.log"
+LOG_FILE = "./logs/agent_runtime.log"
 
 # --- 触发标签配置 ---
 START_TAG = "<ai>"

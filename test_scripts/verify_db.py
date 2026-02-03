@@ -3,7 +3,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
 # --- 配置 (必须与 indexer_pro.py 一致) ---
-DB_DIR = "./chroma_db"
+DB_DIR = "../chroma_db"
 COLLECTION_NAME = "fintech_knowledge"
 MODEL_NAME = "BAAI/bge-m3"
 
