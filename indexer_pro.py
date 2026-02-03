@@ -89,30 +89,48 @@ class DocumentConverter:
             return ""
 
     @staticmethod
-    def convert_xlsx(file_path: str) -> str:
-        """将 Excel 表格转换为 Markdown Table"""
+    def convert_excel(file_path: str) -> str:
+        """
+        通用 Excel 转换器：支持 .xlsx (标准), .xlsm (带宏), .xlsb (二进制)
+        """
         try:
-            # 读取所有工作表
-            xls = pd.ExcelFile(file_path)
+            ext = os.path.splitext(file_path)[1].lower()
+
+            # 1. 智能选择引擎
+            engine = None
+            if ext == '.xlsb':
+                engine = 'pyxlsb'  # 二进制专用引擎
+            else:
+                engine = 'openpyxl'  # .xlsx 和 .xlsm 用这个
+
+            # 2. 加载文件
+            xls = pd.ExcelFile(file_path, engine=engine)
             full_text = []
+
             for sheet_name in xls.sheet_names:
+                # 读取数据 (自动忽略 .xlsm 中的 VBA 代码)
                 df = pd.read_excel(xls, sheet_name=sheet_name)
 
-                # ✅ 新增：清洗 NaN 值
-                df = df.fillna("")  # 将 NaN 替换为空字符串
+                # 3. 数据清洗 (这是我们之前优化的核心)
+                df = df.fillna("")  # 清洗 NaN
 
-                # 如果表格太大，只取前 100 行
-                if len(df) > 100:
-                    df = df.head(100)
+                # 截断过大的表格 (防止 Token 爆炸)
+                if len(df) > 50:
+                    df = df.head(50)
                     full_text.append(f"> [!WARNING] Table truncated (showing first 50 rows)")
 
-                # 只有当 DataFrame 不全为空时才转换
                 if not df.empty:
                     md_table = df.to_markdown(index=False)
                     full_text.append(f"## Sheet: {sheet_name}\n\n{md_table}")
+
             return "\n\n".join(full_text)
+
+        except ImportError as e:
+            if '.xlsb' in file_path:
+                logging.error(f"❌ Missing Library: Please run `uv pip install pyxlsb` to read .xlsb files.")
+            return ""
         except Exception as e:
-            logging.error(f"❌ XLSX Convert Error ({file_path}): {e}")
+            logging.error(f"❌ Excel Convert Error ({file_path}): {e}")
             return ""
 
 
@@ -162,8 +180,8 @@ class KnowledgeIndexer:
                 content = self.converter.convert_docx(file_path)
             elif ext == ".pptx":
                 content = self.converter.convert_pptx(file_path)
-            elif ext in [".xlsx", ".xls"]:
-                content = self.converter.convert_xlsx(file_path)
+            elif ext in [".xlsx", ".xlsm", ".xlsb", ".xls"]:
+                content = self.converter.convert_excel(file_path)
             elif ext == ".md":
                 with open(file_path, "r", encoding="utf-8") as f:
                     content = f.read()
